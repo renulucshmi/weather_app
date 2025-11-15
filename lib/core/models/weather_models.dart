@@ -6,6 +6,7 @@ class WeatherData {
   final DateTime fetchedAt;
   final bool fromCache;
   final String requestUrl;
+  final String studentIndex;
 
   WeatherData({
     required this.tempC,
@@ -14,12 +15,14 @@ class WeatherData {
     required this.fetchedAt,
     required this.fromCache,
     required this.requestUrl,
+    required this.studentIndex,
   });
 
   /// Parse from OpenWeather API response
   factory WeatherData.fromJson(
     Map<String, dynamic> json, {
     required String requestUrl,
+    required String studentIndex,
   }) {
     try {
       final main = json['main'] as Map<String, dynamic>;
@@ -39,6 +42,7 @@ class WeatherData {
         fetchedAt: DateTime.now(),
         fromCache: false,
         requestUrl: requestUrl,
+        studentIndex: studentIndex,
       );
     } catch (e) {
       throw FormatException('Failed to parse weather data: $e');
@@ -54,6 +58,7 @@ class WeatherData {
       'fetchedAt': fetchedAt.toIso8601String(),
       'fromCache': fromCache,
       'requestUrl': requestUrl,
+      'studentIndex': studentIndex,
     };
   }
 
@@ -66,6 +71,7 @@ class WeatherData {
       fetchedAt: DateTime.parse(json['fetchedAt'] as String),
       fromCache: true,
       requestUrl: json['requestUrl'] as String,
+      studentIndex: json['studentIndex'] as String? ?? '',
     );
   }
 
@@ -77,6 +83,7 @@ class WeatherData {
     DateTime? fetchedAt,
     bool? fromCache,
     String? requestUrl,
+    String? studentIndex,
   }) {
     return WeatherData(
       tempC: tempC ?? this.tempC,
@@ -85,6 +92,7 @@ class WeatherData {
       fetchedAt: fetchedAt ?? this.fetchedAt,
       fromCache: fromCache ?? this.fromCache,
       requestUrl: requestUrl ?? this.requestUrl,
+      studentIndex: studentIndex ?? this.studentIndex,
     );
   }
 }

@@ -11,7 +11,11 @@ class WeatherService {
   /// Fetch current weather for given coordinates
   ///
   /// Throws [Exception] on network errors or invalid responses
-  Future<WeatherData> fetchCurrent(double lat, double lon) async {
+  Future<WeatherData> fetchCurrent(
+    double lat,
+    double lon,
+    String studentIndex,
+  ) async {
     final apiKey = dotenv.env['WEATHER_API'];
 
     if (apiKey == null || apiKey.isEmpty) {
@@ -45,7 +49,11 @@ class WeatherService {
       // Parse JSON response
       final jsonData = json.decode(response.body) as Map<String, dynamic>;
 
-      return WeatherData.fromJson(jsonData, requestUrl: url);
+      return WeatherData.fromJson(
+        jsonData,
+        requestUrl: url,
+        studentIndex: studentIndex,
+      );
     } catch (e) {
       if (e is Exception) {
         rethrow;

@@ -111,6 +111,7 @@ class _HomePageState extends State<HomePage> {
       final weatherData = await _weatherService.fetchCurrent(
         _coordinates!.latitude,
         _coordinates!.longitude,
+        _indexController.text.trim(),
       );
 
       // Cache the result
@@ -512,7 +513,7 @@ class _HomePageState extends State<HomePage> {
                               _buildGlassDataRow(
                                 icon: Icons.badge_outlined,
                                 label: 'Index',
-                                value: _indexController.text.trim(),
+                                value: _currentWeather!.studentIndex,
                               ),
                               const SizedBox(height: 16),
                               _buildGlassDataRow(
