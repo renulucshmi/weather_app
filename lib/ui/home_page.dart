@@ -191,10 +191,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text(
           'Weather Dashboard',
-          style: TextStyle(
-            fontWeight: FontWeight.w600,
-            letterSpacing: 0.5,
-          ),
+          style: TextStyle(fontWeight: FontWeight.w600, letterSpacing: 0.5),
         ),
         backgroundColor: Colors.transparent,
         foregroundColor: Colors.white,
@@ -202,6 +199,8 @@ class _HomePageState extends State<HomePage> {
         systemOverlayStyle: SystemUiOverlayStyle.light,
       ),
       body: Container(
+        width: double.infinity,
+        height: double.infinity,
         decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topLeft,
@@ -277,327 +276,331 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
 
-              const SizedBox(height: 16),
-
-              // Coordinates display
-              if (_coordinates != null) ...[
-                _buildGlassCard(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      _buildCoordinateItem(
-                        icon: Icons.location_on_outlined,
-                        label: 'Latitude',
-                        value: _coordinates!.latitudeDisplay,
-                      ),
-                      Container(
-                        width: 1,
-                        height: 50,
-                        color: Colors.white.withOpacity(0.3),
-                      ),
-                      _buildCoordinateItem(
-                        icon: Icons.place_outlined,
-                        label: 'Longitude',
-                        value: _coordinates!.longitudeDisplay,
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 20),
-              ],
-
-              // Fetch button
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  gradient: LinearGradient(
-                    colors: _coordinates == null || _isLoading
-                        ? [Colors.grey.shade400, Colors.grey.shade500]
-                        : [Colors.orange.shade400, Colors.orange.shade600],
-                  ),
-                  boxShadow: _coordinates == null || _isLoading
-                      ? []
-                      : [
-                          BoxShadow(
-                            color: Colors.orange.withOpacity(0.4),
-                            blurRadius: 20,
-                            offset: const Offset(0, 10),
-                          ),
-                        ],
-                ),
-                child: ElevatedButton.icon(
-                  onPressed: _coordinates == null || _isLoading
-                      ? null
-                      : _fetchWeather,
-                  icon: _isLoading
-                      ? const SizedBox(
-                          width: 20,
-                          height: 20,
-                          child: CircularProgressIndicator(
-                            strokeWidth: 2.5,
-                            valueColor: AlwaysStoppedAnimation<Color>(
-                              Colors.white,
-                            ),
-                          ),
-                        )
-                      : const Icon(Icons.wb_sunny_outlined, size: 24),
-                  label: Text(
-                    _isLoading ? 'Fetching Weather...' : 'Get Weather',
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: 0.5,
-                    ),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.transparent,
-                    foregroundColor: Colors.white,
-                    shadowColor: Colors.transparent,
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                  ),
-                ),
-              ),
-
-              const SizedBox(height: 20),
-
-              // Offline/Cache info message
-              if (_isOffline && _currentWeather != null) ...[
-                _buildGlassCard(
-                  color: Colors.blue.withOpacity(0.2),
-                  child: Row(
-                    children: [
-                      const Icon(
-                        Icons.cloud_off,
-                        color: Colors.lightBlueAccent,
-                        size: 24,
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: Text(
-                          'Can\'t fetch current data, but you can view the last fetched data',
-                          style: TextStyle(
-                            color: Colors.white.withOpacity(0.95),
-                            fontSize: 13,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
                 const SizedBox(height: 16),
-              ],
 
-              // Error message
-              if (_errorMsg != null) ...[
-                _buildGlassCard(
-                  color: Colors.red.withOpacity(0.2),
-                  child: Row(
-                    children: [
-                      const Icon(
-                        Icons.error_outline,
-                        color: Colors.orange,
-                        size: 24,
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: Text(
-                          _errorMsg!,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                          ),
+                // Coordinates display
+                if (_coordinates != null) ...[
+                  _buildGlassCard(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        _buildCoordinateItem(
+                          icon: Icons.location_on_outlined,
+                          label: 'Latitude',
+                          value: _coordinates!.latitudeDisplay,
                         ),
+                        Container(
+                          width: 1,
+                          height: 50,
+                          color: Colors.white.withOpacity(0.3),
+                        ),
+                        _buildCoordinateItem(
+                          icon: Icons.place_outlined,
+                          label: 'Longitude',
+                          value: _coordinates!.longitudeDisplay,
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                ],
+
+                // Fetch button
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    gradient: LinearGradient(
+                      colors: _coordinates == null || _isLoading
+                          ? [Colors.grey.shade400, Colors.grey.shade500]
+                          : [Colors.orange.shade400, Colors.orange.shade600],
+                    ),
+                    boxShadow: _coordinates == null || _isLoading
+                        ? []
+                        : [
+                            BoxShadow(
+                              color: Colors.orange.withOpacity(0.4),
+                              blurRadius: 20,
+                              offset: const Offset(0, 10),
+                            ),
+                          ],
+                  ),
+                  child: ElevatedButton.icon(
+                    onPressed: _coordinates == null || _isLoading
+                        ? null
+                        : _fetchWeather,
+                    icon: _isLoading
+                        ? const SizedBox(
+                            width: 20,
+                            height: 20,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2.5,
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                Colors.white,
+                              ),
+                            ),
+                          )
+                        : const Icon(Icons.wb_sunny_outlined, size: 24),
+                    label: Text(
+                      _isLoading ? 'Fetching Weather...' : 'Get Weather',
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        letterSpacing: 0.5,
                       ),
-                    ],
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.transparent,
+                      foregroundColor: Colors.white,
+                      shadowColor: Colors.transparent,
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
                   ),
                 ),
-                const SizedBox(height: 20),
-              ],
 
-              // Weather data card
-              if (_currentWeather != null) ...[
-                _buildGlassCard(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Title with cache indicator
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text(
-                            'Weather Data',
+                const SizedBox(height: 20),
+
+                // Offline/Cache info message
+                if (_isOffline && _currentWeather != null) ...[
+                  _buildGlassCard(
+                    color: Colors.blue.withOpacity(0.2),
+                    child: Row(
+                      children: [
+                        const Icon(
+                          Icons.cloud_off,
+                          color: Colors.lightBlueAccent,
+                          size: 24,
+                        ),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: Text(
+                            'Can\'t fetch current data, but you can view the last fetched data',
                             style: TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                              letterSpacing: 0.5,
+                              color: Colors.white.withOpacity(0.95),
+                              fontSize: 13,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
-                          if (_currentWeather!.fromCache)
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 10,
-                                vertical: 5,
-                              ),
-                              decoration: BoxDecoration(
-                                color: Colors.orange.withOpacity(0.3),
-                                borderRadius: BorderRadius.circular(12),
-                                border: Border.all(
-                                  color: Colors.orange.withOpacity(0.5),
-                                ),
-                              ),
-                              child: const Text(
-                                'cached',
-                                style: TextStyle(
-                                  fontSize: 11,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                ],
+
+                // Error message
+                if (_errorMsg != null) ...[
+                  _buildGlassCard(
+                    color: Colors.red.withOpacity(0.2),
+                    child: Row(
+                      children: [
+                        const Icon(
+                          Icons.error_outline,
+                          color: Colors.orange,
+                          size: 24,
+                        ),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: Text(
+                            _errorMsg!,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
                             ),
-                        ],
-                      ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                ],
 
-                      const SizedBox(height: 20),
-
-                      // Temperature - Large Display
-                      Center(
-                        child: Column(
+                // Weather data card
+                if (_currentWeather != null) ...[
+                  _buildGlassCard(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Title with cache indicator
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Icon(
-                              _getWeatherIcon(_currentWeather!.weatherCode),
-                              size: 80,
-                              color: Colors.white.withOpacity(0.9),
-                            ),
-                            const SizedBox(height: 12),
-                            Text(
-                              '${_currentWeather!.tempC.toStringAsFixed(1)}°C',
-                              style: const TextStyle(
-                                fontSize: 56,
-                                fontWeight: FontWeight.w300,
-                                color: Colors.white,
-                                height: 1,
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            Text(
-                              _getWeatherDescription(_currentWeather!.weatherCode),
+                            const Text(
+                              'Weather Data',
                               style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.white.withOpacity(0.8),
-                                fontWeight: FontWeight.w500,
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                                letterSpacing: 0.5,
                               ),
                             ),
-                          ],
-                        ),
-                      ),
-
-                      const SizedBox(height: 24),
-
-                      // Weather details grid
-                      Container(
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.1),
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        child: Column(
-                          children: [
-                            _buildGlassDataRow(
-                              icon: Icons.badge_outlined,
-                              label: 'Index',
-                              value: _indexController.text.trim(),
-                            ),
-                            const SizedBox(height: 16),
-                            _buildGlassDataRow(
-                              icon: Icons.air,
-                              label: 'Wind Speed',
-                              value: '${_currentWeather!.windSpeed.toStringAsFixed(1)} m/s',
-                            ),
-                            const SizedBox(height: 16),
-                            _buildGlassDataRow(
-                              icon: Icons.cloud_outlined,
-                              label: 'Weather Code',
-                              value: '${_currentWeather!.weatherCode}',
-                            ),
-                            const SizedBox(height: 16),
-                            _buildGlassDataRow(
-                              icon: Icons.access_time,
-                              label: 'Last Updated',
-                              value: DateFormat('MMM dd, HH:mm:ss')
-                                  .format(_currentWeather!.fetchedAt),
-                            ),
-                          ],
-                        ),
-                      ),
-
-                      const SizedBox(height: 20),
-
-                      // Request URL
-                      Container(
-                        padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.2),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.link,
-                                  size: 14,
-                                  color: Colors.white.withOpacity(0.7),
+                            if (_currentWeather!.fromCache)
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 10,
+                                  vertical: 5,
                                 ),
-                                const SizedBox(width: 6),
-                                Text(
-                                  'Request URL',
+                                decoration: BoxDecoration(
+                                  color: Colors.orange.withOpacity(0.3),
+                                  borderRadius: BorderRadius.circular(12),
+                                  border: Border.all(
+                                    color: Colors.orange.withOpacity(0.5),
+                                  ),
+                                ),
+                                child: const Text(
+                                  'cached',
                                   style: TextStyle(
                                     fontSize: 11,
-                                    color: Colors.white.withOpacity(0.7),
+                                    color: Colors.white,
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
-                                const Spacer(),
-                                InkWell(
-                                  onTap: _copyUrlToClipboard,
-                                  child: Icon(
-                                    Icons.copy,
+                              ),
+                          ],
+                        ),
+
+                        const SizedBox(height: 20),
+
+                        // Temperature - Large Display
+                        Center(
+                          child: Column(
+                            children: [
+                              Icon(
+                                _getWeatherIcon(_currentWeather!.weatherCode),
+                                size: 80,
+                                color: Colors.white.withOpacity(0.9),
+                              ),
+                              const SizedBox(height: 12),
+                              Text(
+                                '${_currentWeather!.tempC.toStringAsFixed(1)}°C',
+                                style: const TextStyle(
+                                  fontSize: 56,
+                                  fontWeight: FontWeight.w300,
+                                  color: Colors.white,
+                                  height: 1,
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              Text(
+                                _getWeatherDescription(
+                                  _currentWeather!.weatherCode,
+                                ),
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.white.withOpacity(0.8),
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        const SizedBox(height: 24),
+
+                        // Weather details grid
+                        Container(
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          child: Column(
+                            children: [
+                              _buildGlassDataRow(
+                                icon: Icons.badge_outlined,
+                                label: 'Index',
+                                value: _indexController.text.trim(),
+                              ),
+                              const SizedBox(height: 16),
+                              _buildGlassDataRow(
+                                icon: Icons.air,
+                                label: 'Wind Speed',
+                                value:
+                                    '${_currentWeather!.windSpeed.toStringAsFixed(1)} m/s',
+                              ),
+                              const SizedBox(height: 16),
+                              _buildGlassDataRow(
+                                icon: Icons.cloud_outlined,
+                                label: 'Weather Code',
+                                value: '${_currentWeather!.weatherCode}',
+                              ),
+                              const SizedBox(height: 16),
+                              _buildGlassDataRow(
+                                icon: Icons.access_time,
+                                label: 'Last Updated',
+                                value: DateFormat(
+                                  'MMM dd, HH:mm:ss',
+                                ).format(_currentWeather!.fetchedAt),
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        const SizedBox(height: 20),
+
+                        // Request URL
+                        Container(
+                          padding: const EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            color: Colors.black.withOpacity(0.2),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.link,
                                     size: 14,
                                     color: Colors.white.withOpacity(0.7),
                                   ),
+                                  const SizedBox(width: 6),
+                                  Text(
+                                    'Request URL',
+                                    style: TextStyle(
+                                      fontSize: 11,
+                                      color: Colors.white.withOpacity(0.7),
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  const Spacer(),
+                                  InkWell(
+                                    onTap: _copyUrlToClipboard,
+                                    child: Icon(
+                                      Icons.copy,
+                                      size: 14,
+                                      color: Colors.white.withOpacity(0.7),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 8),
+                              SelectableText(
+                                _weatherService.buildDisplayUrl(
+                                  _currentWeather!.requestUrl,
                                 ),
-                              ],
-                            ),
-                            const SizedBox(height: 8),
-                            SelectableText(
-                              _weatherService.buildDisplayUrl(
-                                _currentWeather!.requestUrl,
+                                style: TextStyle(
+                                  fontSize: 9,
+                                  color: Colors.white.withOpacity(0.6),
+                                  fontFamily: 'monospace',
+                                ),
                               ),
-                              style: TextStyle(
-                                fontSize: 9,
-                                color: Colors.white.withOpacity(0.6),
-                                fontFamily: 'monospace',
-                              ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            ], // Close children: [
-          ), // Close Column
-        ), // Close SingleChildScrollView
-      ), // Close RefreshIndicator
-    ), // Close Container (body)
+                ],
+              ], // Close children: [
+            ), // Close Column
+          ), // Close SingleChildScrollView
+        ), // Close RefreshIndicator
+      ), // Close Container (body)
     ); // Close Scaffold
   }
 
@@ -638,11 +641,7 @@ class _HomePageState extends State<HomePage> {
   }) {
     return Column(
       children: [
-        Icon(
-          icon,
-          color: Colors.white.withOpacity(0.9),
-          size: 28,
-        ),
+        Icon(icon, color: Colors.white.withOpacity(0.9), size: 28),
         const SizedBox(height: 8),
         Text(
           label,
@@ -679,11 +678,7 @@ class _HomePageState extends State<HomePage> {
             color: Colors.white.withOpacity(0.1),
             borderRadius: BorderRadius.circular(10),
           ),
-          child: Icon(
-            icon,
-            color: Colors.white.withOpacity(0.9),
-            size: 20,
-          ),
+          child: Icon(icon, color: Colors.white.withOpacity(0.9), size: 20),
         ),
         const SizedBox(width: 12),
         Expanded(
