@@ -194,10 +194,16 @@ class _HomePageState extends State<HomePage> {
           'Weather Dashboard',
           style: TextStyle(fontWeight: FontWeight.w600, letterSpacing: 0.5),
         ),
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.blue.shade700.withOpacity(0.85),
         foregroundColor: Colors.white,
         elevation: 0,
         systemOverlayStyle: SystemUiOverlayStyle.light,
+        flexibleSpace: ClipRRect(
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+            child: Container(color: Colors.transparent),
+          ),
+        ),
       ),
       body: Container(
         width: double.infinity,
@@ -219,7 +225,12 @@ class _HomePageState extends State<HomePage> {
           child: SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
             keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-            padding: const EdgeInsets.fromLTRB(20, 100, 20, 20),
+            padding: EdgeInsets.fromLTRB(
+              20,
+              MediaQuery.of(context).padding.top + kToolbarHeight + 20,
+              20,
+              20,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
